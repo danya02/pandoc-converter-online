@@ -4,11 +4,14 @@ COPY requirements.txt /
 RUN pip3 install -r /requirements.txt
 
 ENV PYTHONUNBUFFERED yes
+WORKDIR /
 
-COPY static/ /static
+
+RUN mkdir /render_templates
+RUN mkdir /uploads
 COPY templates/ /templates
 COPY main.py /
 
 
-ENTRYPOINT ["gunicorn", "main:app", "-w", "2", "--threads", "2", "-b 0.0.0.0:8000", "-R"]
+ENTRYPOINT ["gunicorn", "main:app", "-w", "2", "--threads", "8", "-b 0.0.0.0:8000", "-R"]
 
