@@ -1,23 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Conversion result</title>
-    </head>
-    <body>
-
-<pre>
-{{ stdout }}
-</pre>
-
-<pre>
-{{ stderr }}
-</pre>
-
-<pre>
-{{ exit_code }}
-</pre>
+<head>
+    <title>Conversion result</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     
-
-
-    </body>
+</head>
+<body>
+    <div class="container">
+        <h2>Standard output:</h2>
+        <pre class="bg-success text-dark bg-opacity-25">{{ stdout }}</pre>
+        
+        <h2>Standard error:</h2>
+        <pre class="bg-danger text-dark bg-opacity-25">{{ stderr }}</pre>
+        
+        <p class="lead">[Process exited with code {{ exit_code }}]</p>
+        
+    </div>
+    
+</body>
 </html>
