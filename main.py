@@ -1,6 +1,6 @@
 from re import template
 import shutil
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
 from flask_hcaptcha import hCaptcha
 from dotenv import load_dotenv
 import os
@@ -133,10 +133,19 @@ def convert(name, template):
     stderr = handle.stderr.read().decode('utf-8')
     exit_code = handle.returncode
 
+    # Now that the compilation is done, zip up the folder
+    os.chdir('..')
+    shutil.make_archive(name+'-output', 'zip', name)
 
+    # Delete the unzipped folder
+    shutil.rmtree(name)
+
+    # Render the result page
     return render_template('convert_result.html', name=name, stdout=stdout, stderr=stderr, exit_code=exit_code)
 
-
+@app.route('/download/<name>')
+def download_output(name):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], name + '-output.zip')
 
 if __name__ == '__main__':
     app.run('0.0.0.0', 5000)
