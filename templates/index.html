@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Pandoc document converter</title>
+    </head>
+    <body>
+        <h1>Pandoc document converter</h1>
+
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        
+        <p>
+            Upload your document folder as a ZIP file here and it'll get converted using Pandoc.
+        </p>
+
+        <form action="{{url_for('convert')}}" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" id="file">
+            {{ hcaptcha }}
+            <input type="submit" value="Convert">
+        </form>
+
+</html>
