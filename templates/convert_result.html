@@ -14,9 +14,9 @@
         <pre class="bg-danger text-dark bg-opacity-25">{{ stderr }}</pre>
         
         <p class="lead">[Process exited with code {{ exit_code }}]</p>
-        
+
+        <a href="{{ url_for('download_output', name=name) }}" class="btn btn-success">Download output</a>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Go back</a>
     </div>
-    
-    <a href="{{ url_for('download_output', name=name) }}" class="btn btn-success">Download output</a>
 </body>
 </html>

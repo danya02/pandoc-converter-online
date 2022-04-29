@@ -116,14 +116,14 @@ def convert(name, template):
             if not os.path.exists(relative_path):
                 # Make the directory if it doesn't exist
                 if os.path.dirname(relative_path):
-                    os.makedirs(os.path.dirname(relative_path))
+                    os.makedirs(os.path.dirname(relative_path), exist_ok=True)
                 # then copy the file
                 shutil.copy(file_path, relative_path)
 
     # Run the makefile, capturing the output
     handle = subprocess.Popen(['make'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=True)
     try:
-        handle.wait(timeout=20)
+        handle.wait(timeout=60)
     except subprocess.TimeoutExpired:
         handle.kill()
         flash('Compilation timed out')
@@ -138,7 +138,7 @@ def convert(name, template):
     shutil.make_archive(name+'-output', 'zip', name)
 
     # Delete the unzipped folder
-    shutil.rmtree(name)
+    #shutil.rmtree(name)
 
     # Render the result page
     return render_template('convert_result.html', name=name, stdout=stdout, stderr=stderr, exit_code=exit_code)
